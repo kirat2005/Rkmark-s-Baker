@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RKmark's Bakers — Artisan Chocolates & Baked Goods</title>
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:    #0E0A06;
+  --brown:   #1C0F07;
+  --cocoa:   #2E1503;
+  --amber:   #C47A1E;
+  --gold:    #E4A825;
+  --cream:   #F2E6CC;
+  --blush:   #D9BF96;
+  --white:   #FBF5EA;
+  --berry:   #6B0F2B;
+  --cranb:   #9B1A35;
+  --mint:    #1D5C3E;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--dark);
+  color:var(--cream);
+  font-family:'Lora',serif;
+  overflow-x:hidden;
+}
+
+/* ─── CURSOR ─── */
+body{cursor:none;}
+.cursor{
+  position:fixed;width:12px;height:12px;
+  background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,width 0.2s,height 0.2s,opacity 0.2s;
+  mix-blend-mode:difference;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(228,168,37,0.5);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform 0.15s ease-out,width 0.3s,height 0.3s;
+}
+
+/* ─── NOISE ─── */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9990;opacity:0.5;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 5rem;
+  transition:background 0.4s;
+}
+nav.scrolled{background:rgba(14,10,6,0.97);backdrop-filter:blur(12px);}
+.logo{
+  display:flex;align-items:center;gap:0.8rem;
+  text-decoration:none;
+}
+.logo-icon{
+  width:40px;height:40px;
+  background:linear-gradient(135deg, var(--amber) 0%, var(--gold) 100%);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:bold;
+  color:var(--dark);
+  box-shadow:0 4px 12px rgba(196,122,30,0.3);
+  font-family:'Abril Fatface',cursive;
+}
+.logo-text{
+  display:flex;flex-direction:column;
+}
+.logo-main{
+  font-family:'Abril Fatface',cursive;
+  font-size:1.5rem;color:var(--gold);
+  letter-spacing:0.03em;line-height:1;
+}
+.logo-sub{
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--blush);
+  margin-top:2px;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
+.nav-links a{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--blush);
+  text-decoration:none;transition:color 0.3s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-order{
+  background:var(--amber)!important;
+  color:var(--dark)!important;
+  padding:0.55rem 1.3rem;
+  border-radius:2px;
+  font-weight:700!important;
+}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;}
+.hamburger span{width:24px;height:2px;background:var(--cream);transition:0.3s;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(120deg,#0E0A06 0%,#1C0F07 40%,#2E1503 70%,#0E0A06 100%);
+}
+.hero-glow{
+  position:absolute;
+  width:700px;height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,122,30,0.12) 0%,transparent 70%);
+  top:-100px;right:-100px;
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;
+  width:400px;height:400px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(107,15,43,0.15) 0%,transparent 70%);
+  bottom:-50px;left:200px;
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:6rem 5rem;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  width:100%;max-width:1400px;margin:0 auto;
+}
+.hero-left{}
+.hero-tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.4em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1.5rem;display:block;
+  opacity:0;animation:up 0.7s ease 0.2s forwards;
+}
+.hero-title{
+  font-family:'Abril Fatface',cursive;
+  font-size:clamp(3rem,5.5vw,5.5rem);
+  line-height:1;color:var(--white);
+  margin-bottom:0.3rem;
+  opacity:0;animation:up 0.7s ease 0.4s forwards;
+}
+.hero-title-accent{
+  font-family:'Lora',serif;
+  font-style:italic;
+  font-size:clamp(2rem,3.5vw,3.5rem);
+  color:var(--gold);display:block;
+  margin-bottom:1.5rem;
+  opacity:0;animation:up 0.7s ease 0.5s forwards;
+}
+.hero-desc{
+  font-size:1rem;font-weight:400;
+  line-height:1.8;color:var(--blush);
+  max-width:400px;margin-bottom:2.5rem;
+  opacity:0;animation:up 0.7s ease 0.7s forwards;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:up 0.7s ease 0.9s forwards;
+}
+.btn-gold{
+  background:var(--amber);color:var(--dark);
+  padding:0.9rem 2rem;border:none;cursor:pointer;
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;
+  text-transform:uppercase;text-decoration:none;
+  display:inline-block;border-radius:2px;
+  font-weight:700;
+  transition:background 0.3s,transform 0.2s,box-shadow 0.3s;
+  box-shadow:0 4px 20px rgba(196,122,30,0.3);
+}
+.btn-gold:hover{background:var(--gold);transform:translateY(-3px);box-shadow:0 8px 30px rgba(228,168,37,0.4);}
+.btn-ghost{
+  background:transparent;color:var(--cream);
+  padding:0.9rem 2rem;
+  border:1px solid rgba(242,230,204,0.25);
+  cursor:pointer;
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;
+  text-transform:uppercase;text-decoration:none;
+  display:inline-block;border-radius:2px;
+  transition:border-color 0.3s,color 0.3s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+
+/* hero photo collage */
+.hero-right{
+  position:relative;height:520px;
+  opacity:0;animation:fadeIn 1s ease 1s forwards;
+}
+.hero-img{
+  position:absolute;
+  border-radius:4px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero-img-1{width:280px;height:320px;top:0;left:40px;transform:rotate(-2deg);}
+.hero-img-2{width:240px;height:260px;top:60px;right:20px;transform:rotate(3deg);}
+.hero-img-3{width:200px;height:200px;bottom:0;left:10px;transform:rotate(1deg);}
+.hero-pill{
+  position:absolute;top:20px;right:60px;
+  background:var(--berry);color:var(--white);
+  padding:0.6rem 1.2rem;border-radius:100px;
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.15em;
+  text-transform:uppercase;z-index:3;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  animation:float 4s ease-in-out infinite;
+}
+.hero-pill2{
+  position:absolute;bottom:40px;right:10px;
+  background:var(--mint);color:var(--white);
+  padding:0.5rem 1rem;border-radius:100px;
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.12em;
+  text-transform:uppercase;z-index:3;
+  animation:float 5s ease-in-out 1s infinite;
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{
+  background:var(--amber);
+  padding:0.75rem 0;overflow:hidden;
+  white-space:nowrap;border-top:1px solid rgba(255,255,255,0.1);
+}
+.marquee-track{display:inline-block;animation:marquee 20s linear infinite;}
+.m-item{
+  display:inline-block;
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--dark);
+  margin:0 1.5rem;font-weight:700;
+}
+.m-sep{display:inline-block;margin:0 0.5rem;opacity:0.5;}
+
+/* ─── SECTIONS ─── */
+.sec{padding:6rem 5rem;}
+.sec-tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.35em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:0.8rem;display:block;
+}
+.sec-title{
+  font-family:'Abril Fatface',cursive;
+  font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--white);margin-bottom:1.2rem;
+  line-height:1.1;
+}
+.sec-title em{
+  font-family:'Lora',serif;
+  font-style:italic;color:var(--gold);
+}
+.sec-body{
+  font-size:1rem;font-weight:400;
+  line-height:1.8;color:var(--blush);
+  max-width:480px;
+}
+
+/* ─── PRODUCTS ─── */
+#products{background:var(--brown);}
+.prod-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-end;margin-bottom:3rem;
+}
+
+/* SPECIAL BUNDLE BANNER */
+.bundle-banner{
+  background:linear-gradient(135deg,var(--berry),#3D0820);
+  border:1px solid rgba(228,168,37,0.3);
+  border-radius:6px;padding:1.5rem 2rem;
+  margin-bottom:3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;
+}
+.bundle-left{}
+.bundle-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.3em;
+  text-transform:uppercase;color:rgba(255,255,255,0.7);
+  margin-bottom:0.4rem;
+}
+.bundle-title{
+  font-family:'Abril Fatface',cursive;
+  font-size:1.5rem;color:var(--white);
+}
+.bundle-desc{
+  font-size:0.9rem;color:rgba(255,255,255,0.75);
+  margin-top:0.3rem;
+}
+.bundle-price-wrap{text-align:center;}
+.bundle-price{
+  font-family:'Abril Fatface',cursive;
+  font-size:2.5rem;color:var(--gold);
+  line-height:1;
+}
+.bundle-price-note{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.15em;
+  color:var(--blush);margin-top:0.3rem;
+}
+
+/* product grid */
+.prod-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.5rem;
+}
+.prod-card{
+  background:var(--dark);
+  border:1px solid rgba(196,122,30,0.12);
+  border-radius:6px;overflow:hidden;
+  transition:transform 0.35s cubic-bezier(.2,.8,.3,1),
+              box-shadow 0.35s,border-color 0.3s;
+}
+.prod-card:hover{
+  transform:translateY(-8px) scale(1.01);
+  box-shadow:0 24px 60px rgba(0,0,0,0.6);
+  border-color:rgba(228,168,37,0.4);
+}
+.prod-photo{
+  height:220px;overflow:hidden;position:relative;
+}
+.prod-photo img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.6s ease;
+}
+.prod-card:hover .prod-photo img{transform:scale(1.06);}
+.prod-badge{
+  position:absolute;top:12px;left:12px;
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.15em;
+  text-transform:uppercase;
+  padding:0.3rem 0.7rem;border-radius:100px;
+  font-weight:700;
+}
+.badge-star{background:var(--amber);color:var(--dark);}
+.badge-new{background:var(--berry);color:#fff;}
+.badge-top{background:var(--mint);color:#fff;}
+.prod-body{padding:1.4rem 1.5rem 1.6rem;}
+.prod-cat{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--amber);
+  margin-bottom:0.35rem;
+}
+.prod-name{
+  font-family:'Abril Fatface',cursive;
+  font-size:1.15rem;color:var(--white);
+  margin-bottom:0.45rem;line-height:1.25;
+}
+.prod-desc{
+  font-size:0.85rem;line-height:1.65;
+  color:var(--blush);margin-bottom:1.2rem;
+}
+.prod-foot{
+  display:flex;align-items:center;
+  justify-content:space-between;
+}
+.prod-price{
+  font-family:'Abril Fatface',cursive;
+  font-size:1.5rem;color:var(--gold);
+}
+.prod-price small{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;color:var(--blush);
+  display:block;line-height:1;margin-top:2px;
+  letter-spacing:0.1em;text-transform:uppercase;
+}
+.add-btn{
+  background:var(--amber);color:var(--dark);
+  border:none;padding:0.5rem 1.1rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.12em;
+  text-transform:uppercase;cursor:pointer;
+  border-radius:3px;font-weight:700;
+  transition:background 0.3s,transform 0.2s;
+}
+.add-btn:hover{background:var(--gold);transform:scale(1.06);}
+
+/* ─── CUSTOM ─── */
+#custom{
+  background:var(--dark);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+.custom-steps{list-style:none;margin:2rem 0 2.5rem;}
+.c-step{
+  display:flex;gap:1.2rem;align-items:flex-start;
+  padding:1.1rem 0;
+  border-bottom:1px solid rgba(242,230,204,0.07);
+}
+.c-num{
+  font-family:'Abril Fatface',cursive;
+  font-size:2rem;color:var(--amber);
+  line-height:1;min-width:2.2rem;
+}
+.c-txt strong{
+  display:block;font-family:'Lora',serif;
+  font-size:1.05rem;font-weight:600;
+  color:var(--white);margin-bottom:0.2rem;
+}
+.c-txt span{
+  font-size:0.88rem;color:var(--blush);
+}
+.custom-photos{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.custom-photo{
+  border-radius:4px;overflow:hidden;
+  aspect-ratio:1;
+  border:1px solid rgba(196,122,30,0.15);
+}
+.custom-photo img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s;
+}
+.custom-photo:hover img{transform:scale(1.08);}
+.custom-photo.tall{
+  grid-row:span 2;aspect-ratio:auto;
+}
+
+/* ─── PRICING TABLE ─── */
+#pricing{
+  background:var(--cocoa);
+  text-align:center;
+}
+.price-table{
+  max-width:640px;margin:3rem auto 0;
+  border:1px solid rgba(196,122,30,0.2);
+  border-radius:6px;overflow:hidden;
+}
+.price-row{
+  display:grid;grid-template-columns:1fr auto;
+  padding:1rem 2rem;
+  border-bottom:1px solid rgba(242,230,204,0.06);
+  transition:background 0.2s;
+  text-align:left;
+}
+.price-row:last-child{border-bottom:none;}
+.price-row:hover{background:rgba(196,122,30,0.07);}
+.price-row.header-row{
+  background:rgba(196,122,30,0.15);
+  border-bottom:1px solid rgba(196,122,30,0.3);
+}
+.price-item{
+  font-size:0.95rem;color:var(--cream);
+}
+.price-item small{
+  display:block;font-size:0.75rem;
+  color:var(--blush);margin-top:2px;
+}
+.price-val{
+  font-family:'Abril Fatface',cursive;
+  font-size:1.3rem;color:var(--gold);
+  align-self:center;
+}
+.price-row.bundle-row{
+  background:linear-gradient(90deg,rgba(107,15,43,0.3),rgba(196,122,30,0.1));
+  border-top:1px solid rgba(228,168,37,0.3);
+  padding:1.4rem 2rem;
+}
+.price-row.bundle-row .price-item{
+  font-weight:600;color:var(--white);
+  font-size:1rem;
+}
+.price-row.bundle-row .price-val{
+  font-size:1.6rem;color:var(--gold);
+}
+
+/* ─── ABOUT ─── */
+#about{
+  background:var(--brown);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+.about-img-wrap{position:relative;}
+.about-main-img{
+  width:100%;aspect-ratio:4/5;
+  border-radius:6px;overflow:hidden;
+  border:1px solid rgba(196,122,30,0.2);
+  box-shadow:-16px 16px 60px rgba(0,0,0,0.5);
+}
+.about-main-img img{width:100%;height:100%;object-fit:cover;}
+.city-badge{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--amber);color:var(--dark);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;font-weight:700;
+  border:1px solid rgba(255,255,255,0.4);
+  box-shadow:0 4px 12px rgba(0,0,0,0.35);
+  margin-right:0.5rem;
+}
+.about-tag-float{
+  position:absolute;bottom:-20px;right:-20px;
+  background:var(--amber);
+  padding:1.2rem 1.6rem;
+  border-radius:4px;
+  font-family:'Abril Fatface',cursive;
+  font-size:1.4rem;color:var(--dark);
+  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+.about-tag-float small{
+  display:block;
+  font-family:'Space Mono',monospace;
+  font-size:0.5rem;letter-spacing:0.15em;
+  text-transform:uppercase;margin-top:4px;
+}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:rgba(196,122,30,0.15);
+  border:1px solid rgba(196,122,30,0.15);
+  border-radius:4px;margin-top:2.5rem;
+}
+.stat{
+  background:var(--brown);padding:1.5rem;
+  text-align:center;
+}
+.stat-n{
+  font-family:'Abril Fatface',cursive;
+  font-size:2.5rem;color:var(--gold);
+  line-height:1;
+}
+.stat-l{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--blush);
+  margin-top:0.3rem;
+}
+
+/* ─── CONTACT ─── */
+#contact{
+  background:var(--dark);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+}
+.contact-info{}
+.contact-item{
+  display:flex;gap:1.2rem;align-items:flex-start;
+  padding:1.2rem 0;
+  border-bottom:1px solid rgba(242,230,204,0.07);
+}
+.c-icon{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(196,122,30,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+  border:1px solid rgba(196,122,30,0.25);
+}
+.c-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--amber);
+  margin-bottom:0.3rem;
+}
+.c-val{
+  font-size:1rem;color:var(--cream);
+}
+.c-val a{color:var(--cream);text-decoration:none;}
+.c-val a:hover{color:var(--gold);}
+
+/* ORDER FORM */
+.order-form{display:grid;gap:1rem;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.f-input{
+  background:rgba(242,230,204,0.05);
+  border:1px solid rgba(242,230,204,0.12);
+  padding:0.9rem 1.1rem;
+  font-family:'Lora',serif;font-size:0.95rem;
+  color:var(--cream);border-radius:3px;
+  outline:none;transition:border-color 0.3s;width:100%;
+}
+.f-input::placeholder{color:rgba(217,191,150,0.45);}
+.f-input:focus{border-color:var(--amber);}
+select.f-input option{background:var(--dark);}
+.f-submit{
+  background:var(--amber);color:var(--dark);
+  padding:1rem;font-family:'Space Mono',monospace;
+  font-size:0.68rem;letter-spacing:0.22em;
+  text-transform:uppercase;border:none;
+  cursor:pointer;border-radius:3px;font-weight:700;
+  transition:background 0.3s,transform 0.2s;
+  box-shadow:0 4px 20px rgba(196,122,30,0.3);
+}
+.f-submit:hover{background:var(--gold);transform:translateY(-2px);}
+
+/* ─── FOOTER ─── */
+footer{
+  background:#07040200;
+  border-top:1px solid rgba(196,122,30,0.15);
+  padding:3.5rem 5rem 1.8rem;
+  background:var(--dark);
+}
+.ft-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:4rem;margin-bottom:2.5rem;
+}
+.ft-brand .logo-main{font-size:2rem;}
+.ft-brand p{
+  font-size:0.88rem;color:var(--blush);
+  line-height:1.7;max-width:260px;margin-top:0.8rem;
+}
+.ft-col h4{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:1rem;
+}
+.ft-col ul{list-style:none;}
+.ft-col ul li{margin-bottom:0.6rem;}
+.ft-col ul a{
+  font-size:0.88rem;color:var(--blush);
+  text-decoration:none;transition:color 0.3s;
+}
+.ft-col ul a:hover{color:var(--cream);}
+.ft-bottom{
+  border-top:1px solid rgba(242,230,204,0.07);
+  padding-top:1.5rem;
+  display:flex;justify-content:space-between;
+  align-items:center;
+}
+.ft-bottom p{
+  font-family:'Space Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.12em;
+  color:rgba(217,191,150,0.4);
+}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;
+  background:var(--amber);color:var(--dark);
+  padding:0.9rem 1.8rem;border-radius:4px;
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.12em;
+  text-transform:uppercase;font-weight:700;
+  transform:translateY(80px);opacity:0;
+  transition:all 0.4s cubic-bezier(.2,.8,.3,1);
+  z-index:800;
+  box-shadow:0 8px 30px rgba(0,0,0,0.4);
+}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ─── REVEAL ─── */
+.r{
+  opacity:0;transform:translateY(36px);
+  transition:opacity 0.8s ease,transform 0.8s ease;
+}
+.r.in{opacity:1;transform:none;}
+.r-delay-1{transition-delay:0.1s;}
+.r-delay-2{transition-delay:0.2s;}
+.r-delay-3{transition-delay:0.3s;}
+.r-delay-4{transition-delay:0.4s;}
+
+/* ─── ANIMATIONS ─── */
+@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── MOBILE ─── */
+@media(max-width:900px){
+  nav{padding:1.1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero-content{grid-template-columns:1fr;padding:5rem 1.5rem 3rem;}
+  .hero-right{display:none;}
+  .sec{padding:4rem 1.5rem;}
+  #custom,#about,#contact{grid-template-columns:1fr;gap:2.5rem;}
+  #cakes > .r{grid-template-columns:1fr!important;}
+  .prod-header{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .f-row{grid-template-columns:1fr;}
+  footer,.ft-grid{padding:3rem 1.5rem 1.5rem;}
+  .ft-grid{grid-template-columns:1fr;gap:2rem;}
+  .bundle-banner{flex-direction:column;text-align:center;}
+  .ft-bottom{flex-direction:column;gap:0.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <img src="logo.png" alt="RKmark's logo" class="logo-icon" />
+    <div class="logo-text">
+      <span class="logo-main">RKmark's Bakers</span>
+      <span class="logo-sub">Artisan Chocolates & Baked Goods</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#cakes">Cakes</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#custom">Custom</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-order">Order Now</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <span class="hero-tag">✦ Handcrafted with Love · Jalandhar, Punjab</span>
+      <h1 class="hero-title">RKmark's</h1>
+      <span class="hero-title-accent">Bakers</span>
+      <p class="hero-desc">
+        Artisan chocolates in extraordinary flavours. Custom cakes for every celebration. Freshly baked goods. Real ingredients. Zero compromises.
+      </p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-gold">Explore Collection</a>
+        <a href="#contact" class="btn-ghost">Order via WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-pill">✦ New — Dubai Khajur</div>
+      <div class="hero-img hero-img-1">
+        <img src="cake.png" alt="Cake image" />
+      </div>
+      <div class="hero-img hero-img-2">
+        <img src="cookie%20white.png" alt="Cookie cream white chocolate" />
+      </div>
+      <div class="hero-img hero-img-3">
+        <img src="blue.png" alt="Blueberry blast" />
+      </div>
+      <div class="hero-pill2">🍫 100% Handcrafted</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="m-item">🫐 Blueberry Blast ₹20</span><span class="m-sep">◆</span>
+    <span class="m-item">🌴 Dubai Khajur ₹35</span><span class="m-sep">◆</span>
+    <span class="m-item">🍓 Cranberry White Choc ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍫 Cranberry Dark Choc ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍪 Cookie Cream White ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍪 Cookie Cream Milk ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍩 Doughnuts</span><span class="m-sep">◆</span>
+    <span class="m-item">🎂 Custom Cakes</span><span class="m-sep">◆</span>
+    <span class="m-item">🎁 Special Bundle ₹120</span><span class="m-sep">◆</span>
+    <!-- repeat -->
+    <span class="m-item">🫐 Blueberry Blast ₹20</span><span class="m-sep">◆</span>
+    <span class="m-item">🌴 Dubai Khajur ₹35</span><span class="m-sep">◆</span>
+    <span class="m-item">🍓 Cranberry White Choc ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍫 Cranberry Dark Choc ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍪 Cookie Cream White ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍪 Cookie Cream Milk ₹25</span><span class="m-sep">◆</span>
+    <span class="m-item">🍩 Doughnuts</span><span class="m-sep">◆</span>
+    <span class="m-item">🎂 Custom Cakes</span><span class="m-sep">◆</span>
+    <span class="m-item">🎁 Special Bundle ₹120</span><span class="m-sep">◆</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products" class="sec">
+  <div class="prod-header r">
+    <div>
+      <span class="sec-tag">Our Collection</span>
+      <h2 class="sec-title">Every Piece, <em>Crafted</em><br>by Hand</h2>
+    </div>
+    <a href="#contact" class="btn-gold">Place an Order →</a>
+  </div>
+
+  <!-- Bundle Banner -->
+  <div class="bundle-banner r">
+    <div class="bundle-left">
+      <p class="bundle-label">⭐ Special Deal</p>
+      <h3 class="bundle-title">Full Experience Box — Pack of 6</h3>
+      <p class="bundle-desc">One of every flavour. The perfect way to taste it all.</p>
+    </div>
+    <div class="bundle-price-wrap">
+      <div class="bundle-price">₹120</div>
+      <p class="bundle-price-note">Pack of 6 pieces</p>
+    </div>
+    <a href="#contact" class="btn-gold">Order Bundle</a>
+  </div>
+
+  <div class="prod-grid">
+
+    <!-- Blueberry Blast -->
+    <div class="prod-card r">
+      <div class="prod-photo">
+        <img src="blue.png" alt="Blueberry Blast" onerror="this.onerror=null;this.src='blue.png'" />
+        <span class="prod-badge badge-top">Fan Favourite</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Signature Chocolate · Round</p>
+        <h3 class="prod-name">Blueberry Blast</h3>
+        <p class="prod-desc">A stunning white chocolate shell filled with wild blueberry ganache. Artisanally crafted, purely indulgent.</p>
+        <div class="prod-foot">
+          <div class="prod-price">₹20 <small>per piece</small></div>
+          <button class="add-btn" onclick="toast('Blueberry Blast added!')">Add to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cranberry White Choc -->
+    <div class="prod-card r r-delay-1">
+      <div class="prod-photo">
+        <img src="canwhite.png" alt="Cranberry White Chocolate" onerror="this.onerror=null;this.src='canwhite.png'" />
+        <span class="prod-badge badge-new">Heart Shape</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Chocolate · Heart</p>
+        <h3 class="prod-name">Cranberry × White Chocolate</h3>
+        <p class="prod-desc">Tangy cranberries embedded in creamy white chocolate. Sweet, tart, and utterly irresistible.</p>
+        <div class="prod-foot">
+          <div class="prod-price">₹25 <small>per piece</small></div>
+          <button class="add-btn" onclick="toast('Cranberry White Choc added!')">Add to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cranberry Dark Choc -->
+    <div class="prod-card r r-delay-2">
+      <div class="prod-photo">
+        <img src="candark.png" alt="Cranberry Dark Chocolate" onerror="this.onerror=null;this.src='candark.png'" />
+        <span class="prod-badge badge-star">Dark & Bold</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Chocolate · Heart</p>
+        <h3 class="prod-name">Cranberry × Dark Chocolate</h3>
+        <p class="prod-desc">Bold 70% dark chocolate with tart cranberries. A sophisticated, bittersweet indulgence for the serious chocolate lover.</p>
+        <div class="prod-foot">
+          <div class="prod-price">₹25 <small>per piece</small></div>
+          <button class="add-btn" onclick="toast('Cranberry Dark Choc added!')">Add to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cookie Cream White -->
+    <div class="prod-card r r-delay-1">
+      <div class="prod-photo">
+        <img src="cookie%20white.png" alt="Cookie cream white chocolate" onerror="this.onerror=null; this.src='https://via.placeholder.com/320x320?text=Cookie+White'" />
+        <span class="prod-badge badge-top">Bestseller</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Chocolate · Round</p>
+        <h3 class="prod-name">Cookie Cream × White Chocolate</h3>
+        <p class="prod-desc">Oreo cookie bits swirled into smooth white chocolate discs. Sweet nostalgia, elevated to an artisan level.</p>
+        <div class="prod-foot">
+          <div class="prod-price">₹25 <small>per piece</small></div>
+          <button class="add-btn" onclick="toast('Cookie Cream White added!')">Add to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cookie Cream Milk -->
+    <div class="prod-card r r-delay-2">
+      <div class="prod-photo">
+        <img src="cookie milk.png" alt="Cookie cream milk chocolate" onerror="this.onerror=null; this.src='https://via.placeholder.com/320x320?text=Cookie+Milk'" />
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Chocolate · Round</p>
+        <h3 class="prod-name">Cookie Cream × Milk Chocolate</h3>
+        <p class="prod-desc">Crunchy cookie crumbles in velvety milk chocolate — the ultimate comfort in every single bite.</p>
+        <div class="prod-foot">
+          <div class="prod-price">₹25 <small>per piece</small></div>
+          <button class="add-btn" onclick="toast('Cookie Cream Milk added!')">Add to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dubai Khajur -->
+    <div class="prod-card r r-delay-3">
+      <div class="prod-photo">
+        <img src="dubai.png" alt="Dubai Khajur" />
+        <span class="prod-badge badge-new">✨ Premium</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Signature · Clear Wrapped</p>
+        <h3 class="prod-name">Dubai Khajur × Roasted Almonds</h3>
+        <p class="prod-desc">Medjool dates nestled in silky milk chocolate with hand-roasted almond crunch. Inspired by Dubai luxury.</p>
+        <div class="prod-foot">
+          <div class="prod-price">₹35 <small>per piece</small></div>
+          <button class="add-btn" onclick="toast('Dubai Khajur added!')">Add to Order</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doughnuts -->
+    <div class="prod-card r r-delay-1">
+      <div class="prod-photo">
+        <img src="dou.png" alt="Doughnuts" />
+        <span class="prod-badge badge-new">Fresh Daily</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Baked Goods</p>
+        <h3 class="prod-name">Artisan Chocolate Doughnuts</h3>
+        <p class="prod-desc">Pillowy soft doughnuts dipped in milk, dark, or white chocolate with beautiful drizzle finishes. Baked fresh every day.</p>
+        <div class="prod-foot">
+          <div class="prod-price">Ask <small>for pricing</small></div>
+          <button class="add-btn" onclick="toast('Doughnut enquiry sent!')">Enquire</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Box -->
+    <div class="prod-card r r-delay-2" style="border-color:rgba(228,168,37,0.25);background:linear-gradient(135deg,#1C0F07,#0E0A06);">
+      <div class="prod-photo" style="background:linear-gradient(135deg,#1D5C3E,#0a2419);display:flex;align-items:center;justify-content:center;font-size:5rem;">
+        🎁
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Custom Order</p>
+        <h3 class="prod-name">Build Your Own Gift Box</h3>
+        <p class="prod-desc">Mix your favourite flavours, choose your box size, add a personal message. Perfect for every occasion — weddings, Eid, birthdays.</p>
+        <div class="prod-foot">
+          <div class="prod-price">Custom <small>pricing</small></div>
+          <button class="add-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Customise →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Cake -->
+    <div class="prod-card r r-delay-1" style="border-color:rgba(228,168,37,0.25);">
+      <div class="prod-photo">
+        <img src="cake.png" alt="Custom Cake" />
+        <span class="prod-badge badge-new">✨ Custom</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Baked Goods · Custom</p>
+        <h3 class="prod-name">Custom Artisan Cakes</h3>
+        <p class="prod-desc">Beautifully crafted cakes — topped with fresh raspberries, gold leaf, and sprinkles. Made to order for birthdays, weddings, and every celebration.</p>
+        <div class="prod-foot">
+          <div class="prod-price">Custom <small>on request</small></div>
+          <button class="add-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order Now →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Chocolates -->
+    <div class="prod-card r r-delay-2" style="border-color:rgba(196,122,30,0.3);background:linear-gradient(135deg,#1C0F07,#0E0A06);">
+      <div class="prod-photo" style="background:linear-gradient(135deg,#3D1503,#1C0A00);display:flex;align-items:center;justify-content:center;font-size:4rem;gap:0.5rem;flex-wrap:wrap;padding:1rem;">
+        <span>🍫</span><span>🍬</span><span>🎂</span><span>🍩</span>
+      </div>
+      <div class="prod-body">
+        <p class="prod-cat">Custom · Any Occasion</p>
+        <h3 class="prod-name">Custom Chocolates & Baked Goods</h3>
+        <p class="prod-desc">Have a unique idea? We craft fully bespoke chocolates, themed cakes, and baked goods for weddings, corporate gifting, festivals, and more.</p>
+        <div class="prod-foot">
+          <div class="prod-price">Bespoke <small>pricing</small></div>
+          <button class="add-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to Us →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section id="pricing" class="sec" style="background:var(--brown);">
+  <div class="r" style="text-align:center;">
+    <span class="sec-tag">Clear Pricing</span>
+    <h2 class="sec-title">Simple & <em>Transparent</em></h2>
+    <p class="sec-body" style="margin:0 auto;">Every piece is priced honestly. No hidden costs. DM or call to order.</p>
+  </div>
+  <div class="price-table r">
+    <div class="price-row header-row">
+      <span class="price-item" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">Product</span>
+      <span class="price-val" style="font-size:0.9rem;color:var(--gold);font-family:'Space Mono',monospace;letter-spacing:0.1em;">Price</span>
+    </div>
+    <div class="price-row">
+      <div class="price-item">Blueberry Blast <small>Round · White Chocolate Shell</small></div>
+      <div class="price-val">₹20</div>
+    </div>
+    <div class="price-row">
+      <div class="price-item">Cranberry × White Chocolate <small>Heart Shape</small></div>
+      <div class="price-val">₹25</div>
+    </div>
+    <div class="price-row">
+      <div class="price-item">Cranberry × Dark Chocolate <small>Heart Shape</small></div>
+      <div class="price-val">₹25</div>
+    </div>
+    <div class="price-row">
+      <div class="price-item">Cookie Cream × White Chocolate <small>Round</small></div>
+      <div class="price-val">₹25</div>
+    </div>
+    <div class="price-row">
+      <div class="price-item">Cookie Cream × Milk Chocolate <small>Round</small></div>
+      <div class="price-val">₹25</div>
+    </div>
+    <div class="price-row">
+      <div class="price-item">Dubai Khajur with Roasted Almonds <small>Clear Wrapped · Premium</small></div>
+      <div class="price-val">₹35</div>
+    </div>
+    <div class="price-row bundle-row">
+      <div class="price-item">⭐ Special Bundle — Full Experience Box <small>Pack of 6 (one of each flavour)</small></div>
+      <div class="price-val">₹120</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAKES SHOWCASE -->
+<section id="cakes" class="sec" style="background:var(--dark);overflow:hidden;position:relative;">
+  <div style="position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(228,168,37,0.06),transparent 70%);pointer-events:none;"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;" class="r">
+    <div style="position:relative;">
+      <div style="border-radius:8px;overflow:hidden;box-shadow:-20px 20px 80px rgba(0,0,0,0.6);border:1px solid rgba(196,122,30,0.2);">
+        <img src="cake.png" alt="Custom designer cake" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <!-- floating badge -->
+      <div style="position:absolute;top:-18px;left:-18px;background:var(--berry);padding:1rem 1.4rem;border-radius:4px;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
+        🍓 Fresh Raspberries<br><span style="font-family:'Abril Fatface',cursive;font-size:1.1rem;letter-spacing:0;display:block;margin-top:4px;">Gold Leaf Finish</span>
+      </div>
+      <div style="position:absolute;bottom:-18px;right:-18px;background:var(--amber);padding:1rem 1.4rem;border-radius:4px;font-family:'Abril Fatface',cursive;font-size:1.2rem;color:var(--dark);box-shadow:0 8px 30px rgba(0,0,0,0.4);text-align:center;">
+        Made to<br>Order
+        <span style="display:block;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;margin-top:4px;">Any Occasion</span>
+      </div>
+    </div>
+    <div>
+      <span class="sec-tag">Cakes & Baked Goods</span>
+      <h2 class="sec-title">Custom <em>Cakes</em><br>for Every<br>Celebration</h2>
+      <p class="sec-body">From birthday cakes crowned with fresh raspberries and gold leaf to wedding-ready showpieces — we bake and decorate entirely to your vision.</p>
+      <p class="sec-body" style="margin-top:1rem;">Every cake is made fresh using real ingredients: no artificial colours, no shortcuts. Just layers of love and skill.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;">
+        <div style="background:rgba(196,122,30,0.08);border:1px solid rgba(196,122,30,0.18);border-radius:4px;padding:1.2rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">🎂</div>
+          <strong style="font-family:'Lora',serif;font-size:0.95rem;color:var(--white);display:block;margin-bottom:0.3rem;">Birthday Cakes</strong>
+          <span style="font-size:0.82rem;color:var(--blush);">Custom flavours, fresh toppings, personalised messages</span>
+        </div>
+        <div style="background:rgba(107,15,43,0.15);border:1px solid rgba(107,15,43,0.3);border-radius:4px;padding:1.2rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">💍</div>
+          <strong style="font-family:'Lora',serif;font-size:0.95rem;color:var(--white);display:block;margin-bottom:0.3rem;">Wedding & Events</strong>
+          <span style="font-size:0.82rem;color:var(--blush);">Tiered cakes, themed designs, corporate orders</span>
+        </div>
+        <div style="background:rgba(29,92,62,0.12);border:1px solid rgba(29,92,62,0.25);border-radius:4px;padding:1.2rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">🍫</div>
+          <strong style="font-family:'Lora',serif;font-size:0.95rem;color:var(--white);display:block;margin-bottom:0.3rem;">Custom Chocolates</strong>
+          <span style="font-size:0.82rem;color:var(--blush);">Bespoke shapes, flavours, branded packaging</span>
+        </div>
+        <div style="background:rgba(196,122,30,0.08);border:1px solid rgba(196,122,30,0.18);border-radius:4px;padding:1.2rem;">
+          <div style="font-size:1.8rem;margin-bottom:0.5rem;">🎁</div>
+          <strong style="font-family:'Lora',serif;font-size:0.95rem;color:var(--white);display:block;margin-bottom:0.3rem;">Gift Hampers</strong>
+          <span style="font-size:0.82rem;color:var(--blush);">Cakes + chocolates + doughnuts in one beautiful box</span>
+        </div>
+      </div>
+      <a href="#contact" class="btn-gold">Order a Custom Cake →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM -->
+<section id="custom" class="sec">
+  <div class="r">
+    <span class="sec-tag">Custom Orders</span>
+    <h2 class="sec-title">Build Your <em>Dream</em><br>Gift Box</h2>
+    <p class="sec-body">We also create fully customised chocolates and gift sets for weddings, corporate events, birthdays, and festivals.</p>
+    <ol class="custom-steps">
+      <li class="c-step">
+        <span class="c-num">01</span>
+        <div class="c-txt">
+          <strong>Choose Your Flavours</strong>
+          <span>Mix and match from all 6 signature flavours + baked goods</span>
+        </div>
+      </li>
+      <li class="c-step">
+        <span class="c-num">02</span>
+        <div class="c-txt">
+          <strong>Pick Box Size</strong>
+          <span>4-piece, 6-piece, 9-piece, 16-piece or a full bespoke assortment</span>
+        </div>
+      </li>
+      <li class="c-step">
+        <span class="c-num">03</span>
+        <div class="c-txt">
+          <strong>Personalise It</strong>
+          <span>Add a handwritten message, custom branding, or ribbon colour</span>
+        </div>
+      </li>
+      <li class="c-step">
+        <span class="c-num">04</span>
+        <div class="c-txt">
+          <strong>We Deliver Joy</strong>
+          <span>Pick up or local delivery in Jalandhar — same day on request</span>
+        </div>
+      </li>
+    </ol>
+    <a href="#contact" class="btn-gold">Start Customising →</a>
+  </div>
+  <div class="custom-photos r">
+    <div class="custom-photo tall">
+      <img src="product1.png" alt="Product 1" onerror="this.onerror=null;this.src='blue.png'" />
+    </div>
+    <div class="custom-photo">
+      <img src="product2.png" alt="Product 2" onerror="this.onerror=null;this.src='canwhite.png'" />
+    </div>
+    <div class="custom-photo">
+      <img src="product3.png" alt="Product 3" onerror="this.onerror=null;this.src='candark.png'" />
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec" style="background:var(--cocoa);">
+  <div class="about-img-wrap r">
+    <div class="about-main-img">
+      <img src="cookie white.png" alt="Cookie Cream White" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x750?text=Cookie+White'" />
+    </div>
+    <div class="about-tag-float">
+       
+      Fresh<br>Daily
+      <small>Made in Jalandhar</small>
+    </div>
+  </div>
+  <div class="r">
+    <span class="sec-tag">Our Story</span>
+    <h2 class="sec-title">Made with<br><em>Passion</em> &<br>Real Ingredients</h2>
+    <p class="sec-body">Born from a love of fine chocolate and the warmth of a home kitchen, RKmark's Bakers began as a bold experiment with flavours nobody else was making in Ludhiana.</p>
+    <p class="sec-body" style="margin-top:1rem">Today, every piece we craft carries that same handmade soul — no artificial flavours, no shortcuts, no compromises. Just real ingredients and genuine care.</p>
+    <div class="about-stats">
+      <div class="stat"><span class="stat-n">6+</span><span class="stat-l">Unique Flavours</span></div>
+      <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Handcrafted</span></div>
+      <div class="stat"><span class="stat-n">0</span><span class="stat-l">Artificial Flavours</span></div>
+      <div class="stat"><span class="stat-n">✦</span><span class="stat-l">Custom Orders Welcome</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / ORDER -->
+<section id="contact" class="sec">
+  <div class="r">
+    <span class="sec-tag">Contact & Orders</span>
+    <h2 class="sec-title">Ready to <em>Indulge?</em></h2>
+    <p class="sec-body" style="margin-bottom:2.5rem">DM us, call, or fill the form. We reply within 2 hours. WhatsApp orders welcome!</p>
+    <div class="contact-item">
+      <div class="c-icon">📞</div>
+      <div>
+        <p class="c-label">Call / WhatsApp</p>
+        <p class="c-val"><a href="tel:+917009883694">+91 70098 83694</a></p>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="c-icon">📍</div>
+      <div>
+        <p class="c-label">Location</p>
+        <p class="c-val">Jalandhar, Punjab, India</p>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="c-icon">⏰</div>
+      <div>
+        <p class="c-label">Order Hours</p>
+        <p class="c-val">Daily 9 AM – 9 PM</p>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="c-icon">📦</div>
+      <div>
+        <p class="c-label">Delivery</p>
+        <p class="c-val">Local delivery + pickup in Jalandhar</p>
+      </div>
+    </div>
+  </div>
+  <div class="r">
+    <form class="order-form" onsubmit="submitForm(event)">
+      <div class="f-row">
+        <input class="f-input" type="text" placeholder="Your Name" required>
+        <input class="f-input" type="tel" placeholder="Phone / WhatsApp" required>
+      </div>
+      <select class="f-input">
+        <option value="">— What would you like? —</option>
+        <option>Blueberry Blast (₹20)</option>
+        <option>Cranberry × White Chocolate (₹25)</option>
+        <option>Cranberry × Dark Chocolate (₹25)</option>
+        <option>Cookie Cream × White Chocolate (₹25)</option>
+        <option>Cookie Cream × Milk Chocolate (₹25)</option>
+        <option>Dubai Khajur with Roasted Almonds (₹35)</option>
+        <option>Special Bundle — Pack of 6 (₹120)</option>
+        <option>Artisan Doughnuts</option>
+        <option>Custom Cake (Birthday / Wedding / Event)</option>
+        <option>Custom Chocolates (Bespoke Flavours / Branding)</option>
+        <option>Custom Gift Box / Hamper</option>
+        <option>Mixed / Multiple Items</option>
+      </select>
+      <input class="f-input" type="number" placeholder="Quantity" min="1">
+      <textarea class="f-input" rows="3" placeholder="Any special requests, occasion details, custom notes..."></textarea>
+      <button type="submit" class="f-submit">Send Order Request ✦</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="logo-main" style="font-family:'Abril Fatface',cursive;font-size:1.8rem;color:var(--gold);">RKmark's Bakers</div>
+      <p>Artisan chocolates and baked goods, handcrafted with love in Jalandhar. Every flavour tells a story.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#products">Blueberry Blast</a></li>
+        <li><a href="#products">Cranberry Collection</a></li>
+        <li><a href="#products">Cookie Cream</a></li>
+        <li><a href="#products">Dubai Khajur</a></li>
+        <li><a href="#products">Doughnuts</a></li>
+        <li><a href="#products">Custom Boxes</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Order</h4>
+      <ul>
+        <li><a href="tel:+917009883694">+91 70098 83694</a></li>
+        <li><a href="#contact">WhatsApp Order</a></li>
+        <li><a href="#pricing">See Pricing</a></li>
+        <li><a href="#custom">Custom Orders</a></li>
+        <li><a href="#about">Our Story</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2025 RKmark's Bakers · Jalandhar, Punjab</p>
+    <p>Made with 🍫 & Pure Love</p>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toastEl"></div>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const curR = document.getElementById('curR');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    curR.style.left = e.clientX + 'px';
+    curR.style.top = e.clientY + 'px';
+  }, 60);
+});
+document.querySelectorAll('a,button,.prod-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.width = '20px'; cur.style.height = '20px';
+    curR.style.width = '50px'; curR.style.height = '50px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.width = '12px'; cur.style.height = '12px';
+    curR.style.width = '36px'; curR.style.height = '36px';
+  });
+});
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 70);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+// Toast
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toastEl');
+  el.textContent = '✦ ' + msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+// Form
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.f-submit');
+  btn.textContent = '✦ Sent! We\'ll reach out soon.';
+  btn.style.background = 'var(--mint)';
+  btn.style.color = '#fff';
+  setTimeout(() => {
+    btn.textContent = 'Send Order Request ✦';
+    btn.style.background = '';
+    btn.style.color = '';
+    e.target.reset();
+  }, 4000);
+}
+
+// Mobile menu
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  links.style.flexDirection = 'column';
+  links.style.position = 'fixed';
+  links.style.top = '0';
+  links.style.left = '0';
+  links.style.right = '0';
+  links.style.bottom = '0';
+  links.style.background = 'rgba(14,10,6,0.98)';
+  links.style.justifyContent = 'center';
+  links.style.alignItems = 'center';
+  links.style.gap = '2rem';
+  links.style.zIndex = '400';
+}
+</script>
+</body>
+</html>
